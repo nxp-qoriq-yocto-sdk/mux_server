@@ -2,7 +2,7 @@
 .SH NAME
 mux_server \- Freescale Embedded Hypervisor byte channel MUX server
 .SH SYNOPSIS
-\fBmux_server\fR target port [ port ... ]
+\fBmux_server\fR [-s <baud-rate>] [-exec] target port [ port ... ]
 .br
 .SH DESCRIPTION
 .PP
@@ -18,16 +18,24 @@ to the target system via a serial or network communications channel.
 The target machine that \fImux_server\fR is providing mux and demux services to.
 This would typically be a serial port (e.g. /dev/ttys0) or a
 hostname:port in the case of network based connection to the target.
+
+if \fB-exec\fR is specified, \fBtarget\fR is an external command to execute.
+The command must support the attachment of stdin and stdout to the target
+system.
 .TP
 \fBport\fR
 One or more network port numbers on the host running \fImux_server\fR which
 applications use to connect to a channel.  The port numbers listed correspond
 to channel numbers, starting with channel 0.  That is, the first port connects
 to channel 0, second port to channel 1, etc.
+.TP
+\fBbaud-rate\fR
+For serial targets, specifies the baud rate (e.g. 115200).
 .SH EXAMPLES
 .TP
-.B mux_server localhost:9124 8000 8001
-Attach to a target at localhost:9124 and expose mux channel 0 on port 8000
+.B mux_server -s 57600 /dev/ttyS0 8000 8001
+Attach to the serial target at /dev/ttyS0 using a baud rate of 57600 and
+expose mux channel 0 on port 8000
 and mux channel 1 on port 8001.
 .SH COPYRIGHT
 Copyright (C) 2008,2009 Freescale Semiconductor
