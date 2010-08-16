@@ -2,7 +2,7 @@
  * K42: (C) Copyright IBM Corp. 2000.
  * All Rights Reserved
  *
- * Copyright (C) 2007-2009 Freescale Semiconductor, Inc.
+ * Copyright (C) 2007-2010 Freescale Semiconductor, Inc.
  *
  * This file is distributed under the GNU LGPL. You should have
  * received a copy of the license along with K42; see the file LICENSE.html
@@ -652,6 +652,8 @@ void *channel_thread(void *p)
 	if (c->fd < 0)
 		pthread_exit(NULL);
 
+	set_socket_flag(c->fd, IPPROTO_TCP, TCP_NODELAY);
+
 	c->status = c->status | STREAM_READY;
 	while (1) {
 		num = recv(c->fd, buf, 1000, 0);
@@ -752,7 +754,7 @@ static int check_channel(struct iochan *c, int timeout)
 
 void usage(void)
 {
-	fprintf(stderr, "Mux server version 1.01\n");
+	fprintf(stderr, "Mux server version 1.02\n");
 	fprintf(stderr, "usage: mux_server [-s <baud-rate>] [-exec] [-verbose] [-debug] \n");
 	fprintf(stderr, "                  <target> <channel_port> ...\n");
 	fprintf(stderr, "\n"
