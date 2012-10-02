@@ -1,0 +1,4 @@
+mux_server is a Linux-based utility supporting console multiplexing and
+demultiplexing. It is part of Embedded Hypervisor.
+
+For more details see the README in Hypervisor's directory.
