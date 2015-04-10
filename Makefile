@@ -36,7 +36,7 @@ HOSTCC_OPTS_C= -Wall \
 all: mux_server
 
 mux_server: mux_server.c
-	$(HOSTCC) $(HOSTCC_OPTS) $(HOSTCC_OPTS_C) -lpthread -o $@ $<
+	$(HOSTCC) $(HOSTCC_OPTS) $(HOSTCC_OPTS_C) -o $@ $< -lpthread
 
 clean:
 	rm -f mux_server
